@@ -60,6 +60,7 @@ main() {
   else
     bake_file=`find_file`
     if [ -n "$bake_file" ]; then
+      echo "(in `dirname $bake_file`)"
       run_file $bake_file
     else
       echo "bake: Aborted. No Bakefile found."
