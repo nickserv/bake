@@ -1,9 +1,13 @@
 #!/bin/bash
-# bake [-v]
+# bake [-f file] [-v]
 
+bake_file=
 verbose=
-while getopts “v” option; do
+while getopts "f:v" option; do
   case $option in
+    f)
+      bake_file=$OPTARG
+      ;;
     v)
       verbose=1
       ;;
@@ -51,11 +55,15 @@ list_tasks() {
 }
 
 main() {
-  bake_file=`find_file`
   if [ -n "$bake_file" ]; then
     run_file $bake_file
   else
-    echo "bake: Aborted. No Bakefile found."
+    bake_file=`find_file`
+    if [ -n "$bake_file" ]; then
+      run_file $bake_file
+    else
+      echo "bake: Aborted. No Bakefile found."
+    fi
   fi
 }
 
