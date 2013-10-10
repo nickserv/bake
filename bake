@@ -11,21 +11,16 @@ while getopts “v” option; do
 done
 
 run_file() {
-  bake_file=`find_file`
-  if [ -n "$bake_file" ]; then
-    bake_script=`mktemp -t bake_tmp.XXX`
-    while read -r line; do
-      echo "$line" >> $bake_script
-    done <<< "`cat $bake_file`"
-    if [[ -n $verbose ]]; then
-      cat $bake_script | bash --verbose
-    else
-      cat $bake_script | bash
-    fi
-    rm $bake_script
+  bake_script=`mktemp -t bake_tmp.XXX`
+  while read -r line; do
+    echo "$line" >> $bake_script
+  done <<< "`cat $1`"
+  if [[ -n $verbose ]]; then
+    cat $bake_script | bash --verbose
   else
-    echo "bake: Aborted. No Bakefile found."
+    cat $bake_script | bash
   fi
+  rm $bake_script
 }
 
 # Looks for the nearest Bakefile in the current directory and its parent
@@ -50,4 +45,13 @@ find_file() {
   done
 }
 
-run_file
+main() {
+  bake_file=`find_file`
+  if [ -n "$bake_file" ]; then
+    run_file $bake_file
+  else
+    echo "bake: Aborted. No Bakefile found."
+  fi
+}
+
+main
