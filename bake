@@ -1,0 +1,11 @@
+#!/bin/bash
+
+run_file() {
+  if [ -f Bakefile ]; then
+    bash --verbose Bakefile
+  else
+    echo "bake: Aborted. No Bakefile found."
+  fi
+}
+
+run_file
