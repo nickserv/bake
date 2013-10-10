@@ -6,3 +6,12 @@ A simple make-like task runner that uses standard bash syntax. Bake organizes ta
 - Tasks can have prerequisites, as in make.
 - Portable source code, written in bash.
 - I am considering adding zsh support in the future.
+
+## Syntax
+```
+MESSAGE="Hello, world!"
+
+speak:
+  echo $MESSAGE
+  echo "It is now `date`"
+```
