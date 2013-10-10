@@ -2,7 +2,12 @@
 
 run_file() {
   if [ -f Bakefile ]; then
-    bash --verbose Bakefile
+    bake_file=Bakefile
+    bake_script=`mktemp`
+    while read -r line; do
+      echo "$line" >> $bake_script
+    done <<< "`cat $bake_file`"
+    cat $bake_script | bash --verbose
   else
     echo "bake: Aborted. No Bakefile found."
   fi
