@@ -14,4 +14,26 @@ run_file() {
   fi
 }
 
+# Looks for the nearest Bakefile in the current directory and its parent
+# directories
+find_file() {
+  # Loop until a Bakefile is found or / is reached
+  while true; do
+
+    # If there is a Bakefile here, echo its path and return
+    if [ -f Bakefile ]; then
+      # TODO: Fix a bug where a Bakefile in / has a path of "//Bakefile"
+      echo `pwd`/Bakefile
+      return
+    # Else if we have looked through all the parent directories, return
+    elif [ `pwd` == "/" ]; then
+      return
+    # Otherwise, cd into the parent directory and keep looping
+    else
+      cd ..
+    fi
+
+  done
+}
+
 run_file
