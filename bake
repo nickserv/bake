@@ -8,6 +8,7 @@ run_file() {
       echo "$line" >> $bake_script
     done <<< "`cat $bake_file`"
     cat $bake_script | bash --verbose
+    rm $bake_script
   else
     echo "bake: Aborted. No Bakefile found."
   fi
