@@ -1,5 +1,5 @@
 MESSAGE="Hello, world!"
 
-speak:
+#speak:
   echo $MESSAGE
   echo "It is now `date`"
