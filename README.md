@@ -9,6 +9,9 @@ other constructs.
 - Tasks can have prerequisites, as in make.
 - Portable source code, written in bash.
 - I am considering adding zsh support in the future.
+- Useful features borrowed from rake:
+  - List tasks in a Bakefile.
+  - Intelligently search for Bakefiles in parent directories when running bake.
 
 ## Syntax
 ```
