@@ -60,7 +60,9 @@ main() {
   else
     bake_file=`find_file`
     if [ -n "$bake_file" ]; then
-      echo "(in `dirname $bake_file`)"
+      if [ `dirname $bake_file` != `pwd` ]; then
+        echo "(in `dirname $bake_file`)"
+      fi
       run_file $bake_file
     else
       echo "bake: Aborted. No Bakefile found."
