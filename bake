@@ -1,4 +1,14 @@
 #!/bin/bash
+# bake [-v]
+
+verbose=
+while getopts “v” option; do
+  case $option in
+    v)
+      verbose=1
+      ;;
+  esac
+done
 
 run_file() {
   bake_file=`find_file`
@@ -7,7 +17,11 @@ run_file() {
     while read -r line; do
       echo "$line" >> $bake_script
     done <<< "`cat $bake_file`"
-    cat $bake_script | bash --verbose
+    if [[ -n $verbose ]]; then
+      cat $bake_script | bash --verbose
+    else
+      cat $bake_script | bash
+    fi
     rm $bake_script
   else
     echo "bake: Aborted. No Bakefile found."
