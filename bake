@@ -1,10 +1,27 @@
 #!/bin/bash
-# bake [-f file] [-v]
+# bake [-f file] [-hv]
+
+usage() {
+cat << EOF
+Usage: $0 [-f file] [options]
+
+A simple make-like task runner that uses standard bash syntax.
+
+OPTIONS:
+  -h       Show this message
+  -f FILE  Use FILE as the Bakefile
+  -v       Verbose (show any bash commands that run)
+EOF
+}
 
 bake_file=
 verbose=
-while getopts "f:v" option; do
+while getopts "hf:v" option; do
   case $option in
+    h)
+      usage
+      exit 1
+      ;;
     f)
       bake_file=$OPTARG
       ;;
